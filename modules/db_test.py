@@ -10,7 +10,7 @@ import datetime
 import time
 import serial
 
-url = urlparse('mysql://pi:tomo0406jacx@localhost:3306/boso')
+url = urlparse('mysql://'username':'password'@'hostname':'port number'dbname')
 conn = mysql.connector.connect(
         host = url.hostname,
         port = url.port,
