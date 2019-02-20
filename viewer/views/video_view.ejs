@@ -1,10 +1,37 @@
 <!DOCTYPE html>
 <head>
-<title>Meadow Video</title>
-<script>
-	var urlParam = location.search.substring(1);
-	var param = urlParam.split('=');
-	document.write("<video src= movie/" + param[1] + " controls></video>");
-</script>
-<a href="/" target="_blank">back to menu</a><br>
+	<title>Watch Video Window</title>
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<style>
+		.col-lg-12 div{
+			text-align: center;
+			font-size: 4.375vw;
+		}
+	</style>
+</head>
+
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12 bg-primary">	
+			<script class="title">
+				var urlParam = location.search.substring(1);
+				var param = urlParam.split('=');
+				document.write("<div class=title>" + param[1] + "</div>");
+			</script>
+		</div>
+	</div>
+
+
+	<div class="embed-responsive embed-responsive-16by9">
+	<script>
+		var urlParam = location.search.substring(1);
+		var param = urlParam.split('=');
+		document.write("<video src= movie/" + param[1] + " class = img-responsive controls allowfullscreen></video>");
+	</script>
+	</div>
+</div>
+
+<a href="/video_list">ビデオ一覧へ戻る</a><br>
+<a href="/" >メニュー画面へ戻る</a><br>
 </body>

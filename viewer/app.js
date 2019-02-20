@@ -34,6 +34,7 @@ var photoViewRouter = require('./routes/photo_view');
 
 var app = express();
 app.use(express.static('public'));
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); 
 
 app.set('views', path.join(__dirname,'views'));
 // テンプレートエンジンの指定

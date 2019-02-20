@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <head>
-<title>Meadow Video</title>
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<title>Video List Window</title>
+</head>
+
 <body>
 <script type="text/javascript">
 	/*
@@ -38,8 +41,8 @@
 	console.log(json_before);
 	for (i =0, j = json_before.length; i < j; i++){
 		console.log(json_before[i]);
-		document.write("<a href=video_view?id=" + json_before[i] + " target=_blank>" + json_before[i] + "</a>");
+		document.write("<a href=video_view?id=" + json_before[i] + ">" + json_before[i] + "</a><br>");
 	}
 </script>
-<a href="/" target="_blank">back to menu</a><br>
+<a href="/">back to menu</a><br>
 </body>
