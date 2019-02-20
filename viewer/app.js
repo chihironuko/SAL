@@ -9,11 +9,19 @@ var indexRouter = require('./routes/index');
 //dust
 var usersRouter = require('./routes/users');
 //video main page
-var videoRouter = require('./routes/video');
+var videoListRouter = require('./routes/video_list');
 //sql form page
-var sqlRouter = require('./routes/sql');
+var sqlFormRouter = require('./routes/sql_form');
 //photo main page
-var photoRouter = require('./routes/photo');
+var photoListRouter = require('./routes/photo_list');
+//video main page
+var videoViewRouter = require('./routes/video_view');
+//sql form page
+var sqlViewRouter = require('./routes/sql_view');
+//photo main page
+var photoViewRouter = require('./routes/photo_view');
+
+
 
 var app = express();
 
@@ -31,9 +39,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/video', videoRouter);
-app.use('/sql', sqlRouter);
-app.use('/photo', photoRouter);
+app.use('/video_list', videoListRouter);
+app.use('/sql_form', sqlFormRouter);
+app.use('/photo_list', photoListRouter);
+app.use('/video_view', videoViewRouter);
+app.use('/sql_view', sqlViewRouter);
+app.use('/photo_view', photoViewRouter);
 
 app.use(function(req,res,next){
 	next(createError(404));

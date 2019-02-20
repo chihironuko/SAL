@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<head>
+<title>Meadow Video</title>
+<script>
+	var urlParam = location.search.substring(1);
+	var param = urlParam.split('=');
+	document.write("<video src= movie/" + param[1] + ".mp4 controls></video>");
+</script>
+<a href="/" target="_blank">back to menu</a><br>
+</body>
