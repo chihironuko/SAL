@@ -12,7 +12,7 @@ from email.mime.multipart import MIMEMultipart
 target_dir = 'picture'
 
 class sendGmailAttach:
-    username, password = 'okkun.noto@gmail.com', 'tomo0406noto'
+    username, password = 'your gmail address@gmail.com', 'your google password'
 
     def __init__(self, to, sub, body, attach_file):
         host, port = 'smtp.gmail.com', 465
@@ -21,11 +21,11 @@ class sendGmailAttach:
         msg['From'] = self.username
         msg['To'] = to
 
-        # メール本文
+        # body
         body = MIMEText(body)
         msg.attach(body)
 
-        # 添付ファイルの設定
+        # add file
         attachment = MIMEBase('image', 'jpeg')
         file = open(attach_file['path'], 'rb+')
         attachment.set_payload(file.read())
@@ -47,8 +47,8 @@ class ChangeHandler(FileSystemEventHandler):
     def on_created(self, event):
         filepath = event.src_path
         filename = os.path.basename(filepath)
-        print('%sができました' % filename)
-        to = 's1632041uh@s.chibakoudai.jp'
+        print('created ===> %s' % filename)
+        to = 'to address@gmail.com'
         sub = 'test'
         body = 'file send test'
         pathname = 'picture/'+filename
