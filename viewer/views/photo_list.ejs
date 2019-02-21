@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<head>
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<title>Video List Window</title>
+</head>
+
+<body>
+
+<div class="row">
+
+</div>
+
+<div class="row">
+<script type="text/javascript">
+	/*
+	var test = [<%= title %>];
+	console.log(test);
+	*/
+	var result = function(test, dict){
+		var flag = '';
+		var check = ''
+		for(i = 0,j = dict.length; i < j; i ++){
+			flag = dict.splice(0,1).toString();
+			console.log(flag);
+			try{
+				reg = new RegExp(flag);
+			}catch(SyntaxError){
+				reg = flag;
+			}
+			console.log(test);
+			while(true){
+				test = test.replace(reg,'');
+				if(test == check){
+					break;
+				}else{
+					check = test;
+				}
+			}
+		}
+		return test;
+	};
+	var test = "<%= title %>";
+	var dictionary = [ '&#34','[',']','"',";" ];
+	var result_json = result(test,dictionary);
+	console.log(result_json);
+	var json_before = result_json.split(',');
+	console.log(json_before);
+	for (i =0, j = json_before.length; i < j; i++){
+		console.log(json_before[i]);
+		document.write("<div class=col><img src=images/" + json_before[i] + " class=img-fluid /></div>");
+	}
+</script>
+</div>
+
+<div class="row">
+	
+</div>
+<a href="/">back to menu</a><br>
+</body>
