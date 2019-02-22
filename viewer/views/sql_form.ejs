@@ -11,27 +11,44 @@
 </head>
 
 <body>
-<div class="container">
-	<div class="row">
-		<div class="col-lg-12 bg-primary">	
-			<script class="title">
-				var urlParam = location.search.substring(1);
-				var param = urlParam.split('=');
-				document.write("<div class=title>" + param[1] + "</div>");
-			</script>
-		</div>
-	</div>
-
-
-	<div class="embed-responsive embed-responsive-16by9">
-	<script>
-		var urlParam = location.search.substring(1);
-		var param = urlParam.split('=');
-		document.write("<video src= movie/" + param[1] + " class = img-responsive controls allowfullscreen></video>");
-	</script>
-	</div>
-</div>
-
-<a href="/video_list">ビデオ一覧へ戻る</a><br>
+<script type="text/javascript">
+	/*
+	var test = [<%= title %>];
+	console.log(test);
+	*/
+	var result = function(test, dict){
+		var flag = '';
+		var check = ''
+		for(i = 0,j = dict.length; i < j; i ++){
+			flag = dict.splice(0,1).toString();
+			console.log(flag);
+			try{
+				reg = new RegExp(flag);
+			}catch(SyntaxError){
+				reg = flag;
+			}
+			console.log(test);
+			while(true){
+				test = test.replace(reg,'');
+				if(test == check){
+					break;
+				}else{
+					check = test;
+				}
+			}
+		}
+		return test;
+	};
+	var test = "<%= title %>";
+	var dictionary = [ '&#34','[',']','"',";" ];
+	var result_json = result(test,dictionary);
+	console.log(result_json);
+	var json_before = result_json.split(',');
+	console.log(json_before);
+	for (i =0, j = json_before.length; i < j; i++){
+		console.log(json_before[i]);
+		document.write(json_before[i] + "<br>");
+	}
+</script>
 <a href="/" >メニュー画面へ戻る</a><br>
 </body>

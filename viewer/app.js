@@ -33,6 +33,10 @@ var photoViewRouter = require('./routes/photo_view');
 
 
 var app = express();
+
+var domain = require('express-domain-middleware');
+app.use(domain);
+
 app.use(express.static('public'));
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); 
 
