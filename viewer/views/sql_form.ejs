@@ -46,8 +46,10 @@
 	var json_before = result_json.split(',');
 	console.log(json_before);
 	for (i =0, j = json_before.length; i < j; i++){
-		console.log(json_before[i]);
-		document.write(json_before[i] + "<br>");
+		for(x=0;x<3;x++){
+			console.log(json_before[i]);
+			document.write(json_before[i] + "<br>");
+		}
 	}
 </script>
 <a href="/" >メニュー画面へ戻る</a><br>

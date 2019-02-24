@@ -38,11 +38,21 @@
 	var result_json = result(test,dictionary);
 	console.log(result_json);
 	var json_before = result_json.split(',');
+	var flag = 0;
 	console.log(json_before);
-	for (i =0, j = json_before.length; i < j; i++){
-		console.log(json_before[i]);
-		document.write("<a href=video_view?id=" + json_before[i] + ">" + json_before[i] + "</a><br>");
+	document.write('<ul>');
+	for (i =0, j = json_before.length/2; i < j; i++){
+		document.write('<li class=col-lg-8>');
+		for(x=0;x<2;x++){
+			if(json_before[flag] != 'undefined'){
+				console.log(json_before[x]);
+				document.write('<a href=video_view?id=' + json_before[flag] + '>' + json_before[flag] + '</a><br>');
+				flag++;
+			}
+		}
+		document.write('</li>');
 	}
+	document.write('</ul>');
 </script>
 <a href="/">back to menu</a><br>
 </body>
