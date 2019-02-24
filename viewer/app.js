@@ -39,6 +39,8 @@ app.use(domain);
 
 app.use(express.static('public'));
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); 
+app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); 
+app.use('/boot-date', express.static(__dirname + '/node_modules/bootstrap-datepicker')); 
 
 app.set('views', path.join(__dirname,'views'));
 // テンプレートエンジンの指定

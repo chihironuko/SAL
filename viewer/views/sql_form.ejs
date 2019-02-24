@@ -1,56 +1,68 @@
 <!DOCTYPE html>
+
+<script src="https://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript" language="javascript"></script>
+<link rel="stylesheet" href="/js/bootstrap.js">
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/boot-date/dist/css/bootstrap-datepicker.min.css">
+<script type="text/javascript" src="/boot-date/dist/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="/boot-date/dist/locales/bootstrap-datepicker.ja.min.js"></script>
+
 <head>
 	<title>Watch Video Window</title>
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
 	<style>
-		.col-lg-12 div{
+		.col div{
 			text-align: center;
 			font-size: 4.375vw;
+		}
+		.row div {
+			border: 1px solid red;
+		}
+		div {
+			text-align: center;
 		}
 	</style>
 </head>
 
 <body>
-<script type="text/javascript">
-	/*
-	var test = [<%= title %>];
-	console.log(test);
-	*/
-	var result = function(test, dict){
-		var flag = '';
-		var check = ''
-		for(i = 0,j = dict.length; i < j; i ++){
-			flag = dict.splice(0,1).toString();
-			console.log(flag);
-			try{
-				reg = new RegExp(flag);
-			}catch(SyntaxError){
-				reg = flag;
-			}
-			console.log(test);
-			while(true){
-				test = test.replace(reg,'');
-				if(test == check){
-					break;
-				}else{
-					check = test;
-				}
-			}
-		}
-		return test;
-	};
-	var test = "<%= title %>";
-	var dictionary = [ '&#34','[',']','"',";" ];
-	var result_json = result(test,dictionary);
-	console.log(result_json);
-	var json_before = result_json.split(',');
-	console.log(json_before);
-	for (i =0, j = json_before.length; i < j; i++){
-		for(x=0;x<3;x++){
-			console.log(json_before[i]);
-			document.write(json_before[i] + "<br>");
-		}
-	}
+
+<form action='sql_view'>
+
+<div class="form-group" id="datepicker-inline">
+  <div class="col-sm-9 form-inline">
+  	<script>
+  		var now = new Date();
+		var year = now.getFullYear();
+		var month = now.getMonth()+1;
+		var day = now.getDate();
+    	document.write("<div class=in-line data-date="+year+"年"+month+"月"+day+"日></div>");
+	</script>
+    <input type="text" id="my_hidden_input">
+  </div>
+</div>
+<script>
+$(function(){
+    $('#datepicker-inline .in-line').datepicker({
+        format: "yyyy-mm-dd",
+        language: "ja",
+        autoclose: true
+    });
+    $('.in-line').on('changeDate', function() {
+        $('#my_hidden_input').val(
+            $('.in-line').datepicker('getFormattedDate')
+        );
+    });
+});
+
+document.write('<button type=submit><a href=sql_view id=' +  + '>search</a></button>');
 </script>
+<p>
+<input type="submit" value="送信">
+</p>
+
+</form>
+
+<p>
 <a href="/" >メニュー画面へ戻る</a><br>
+</p>
 </body>
