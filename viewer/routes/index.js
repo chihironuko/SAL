@@ -32,13 +32,19 @@ router.get('/', function(req, res, next) {
     		var fileList = files.filter(function(file){
     			try{
         			return fs.statSync("./public/movie/"+file).isFile(); //絞り込み
-        		}catch{
+        		}catch(e){
         			return false;
         		}
     		});
-    		console.log(fileList);
+    		var file_json_res = [];
+    		var tmp = '';
+    		for(i=0,j=fileList.length;i<j;i++){
+    			tmp = fileList[i].split('.');
+    			file_json_res.push(tmp[0]);
+    		};
+    		console.log(file_json_res);
 			var json_text = JSON.stringify(fileList);
-			res.render('index',{mov_lis : json_text,sql_res : sql_result});
+			res.render('index',{mov_lis : file_json_res,sql_res : sql_result});
 		});
 	};
 

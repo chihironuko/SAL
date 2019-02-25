@@ -3,21 +3,21 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	var mysql      = require('mysql');
+	var mysql = require('mysql');
 	var result = [];
 	global.result = [];
-	var connection = mysql.createConnection({
+	/*var connection = mysql.createConnection({
 		host     : '192.168.100.7',
 		user     : 'home',
 		password : 'arvensis_11',
 		database : 'boso'
-	});
-	/*var connection = mysql.createConnection({
-		host     : '172.16.162.167',
-		user     : 'other',
-		password : 'tomo0406jacx',
-		database : 'boso'
 	});*/
+	var connection = mysql.createConnection({
+		host     : '172.16.162.159',
+		user     : 'other',
+		password : 'jacx0809mmhsmc',
+		database : 'boso'
+	});
 	connection.connect(function(err){
 		if(err){
 			console.error('error connecting: ' + err.stack);

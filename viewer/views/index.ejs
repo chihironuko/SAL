@@ -136,14 +136,50 @@
               if(json_before[y-x] == undefined){
                 break;
               }
-              document.write('<div class=videolink><a href=video_view?id=' + json_before[y-x] + ' class = videolink>'+ json_before[y-x] + '</a></div><br>');
+              document.write('<div class=videolink><a href=video_view?id=' + json_before[y-x] + '.mp4 class = videolink>'+ json_before[y-x] + '</a></div><br>');
             };
           </script>
         </div>
       </div>
       <div class="timelines"><h2>photo</h2>
         <div class="tl_inner">
-          
+          <script>
+            var videolist = "<%= mov_lis%>";
+            var top='';
+            var result = function(test, dict){
+              var flag = '';
+               var check = ''
+              for(i = 0,j = dict.length; i < j; i ++){
+                flag = dict.splice(0,1).toString();
+                console.log(flag);
+                try{
+                  reg = new RegExp(flag);
+                }catch(SyntaxError){
+                  reg = flag;
+                }
+                console.log(test);
+                while(true){
+                  test = test.replace(reg,'');
+                 if(test == check){
+                   break;
+                }else{
+                  check = test;
+                }
+              }
+            }
+            return test;
+            };
+            var dictionary = [ '&#34','[',']','"',";" ];
+            var result_json = result(videolist,dictionary);
+            console.log(result_json);
+            var json_before = result_json.split(',');
+            for(x=1,y=json_before.length;x<6;x++){
+              if(json_before[y-x] == undefined){
+                break;
+              }
+              document.write('<div class=videolink><img src=images/' + json_before[y-x] + '.jpg class=img-fluid /></div><br>');
+            };
+          </script>
         </div>
       </div>
       <div class="timelines"><h2>sql_data</h2>

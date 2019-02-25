@@ -5,11 +5,18 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
 	var mysql      = require('mysql');
 	var result = [];
+	var url = require('url');
 	global.result = [];
-	var connection = mysql.createConnection({
+	/*var connection = mysql.createConnection({
 		host     : '192.168.100.7',
 		user     : 'home',
 		password : 'arvensis_11',
+		database : 'boso'
+	});*/
+	var connection = mysql.createConnection({
+		host     : '172.16.162.159',
+		user     : 'other',
+		password : 'jacx0809mmhsmc',
 		database : 'boso'
 	});
 	connection.connect(function(err){
@@ -27,8 +34,9 @@ router.get('/', function(req, res, next) {
 		res.render('sql_view',{ title : result_true });
 	}
 	function testsql(callback){
-		console.log('querry');
-		connection.query('select * from sensor;',function(err,rows,fields){
+		var urlParam = req.url.split('?')[1];
+		console.log(urlParam);
+		connection.query('select * from sensor where date = ?;',[urlParam],function(err,rows,fields){
 			if (err){
 				console.log('err: ' + err);
 			}

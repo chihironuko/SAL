@@ -6,6 +6,7 @@
 <link rel="stylesheet" type="text/css" href="/boot-date/dist/css/bootstrap-datepicker.min.css">
 <script type="text/javascript" src="/boot-date/dist/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript" src="/boot-date/dist/locales/bootstrap-datepicker.ja.min.js"></script>
+<link rel="shortcut icon" href="/path/favicon.ico">
 
 <head>
 	<title>Watch Video Window</title>
@@ -22,6 +23,13 @@
 			text-align: center;
 		}
 	</style>
+	<script type="text/javascript" language="javascript">
+    	function onButtonClick() {
+    		target = document.getElementById("output");
+        	target.innerText = document.forms.id_form1.id_textBox1.value;
+        	//target.innerText = document.id_form1.id_textBox1.value;//これでもOK
+    	}
+	</script>
 </head>
 
 <body>
@@ -35,7 +43,7 @@
     	document.write("<div class=in-line data-date="+year+"年"+month+"月"+day+"日></div>");
 	</script>
 	<br>
-    <input type="text" id="my_hidden_input">
+    <input type="text" id="my_hidden_input" class="form-control">
 </div>
 <script>
 $(function(){
@@ -50,18 +58,38 @@ $(function(){
         );
     });
 });
-
-$("save").click(function () {
-	var text = $(this).text();
-});
-
-console.log(text);
+	//var text = $('#my_hidden_input').val();
+	//console.log(text);
+	/*ocument.write('<form method=get action=sql_view?id='+ $('#my_hidden_input').val() + '>');
+	document.write("<button>送信</button>");
+	document.write('</form>');*/
 </script>
 
-
-<form action='sql_view'>
-<input type="button" id="save" value=" 保存 " action="sql_view">
+<form name="sample">
+<input type="button" name="send" value="send" onClick="linkCheck(1)">
 </form>
+
+
+<script type="text/javascript">
+function linkCheck(btn){
+    link = "Yahoo!";
+    href = '/sql_view?'+ $('#my_hidden_input').val() +'';
+    location.href = href;
+}
+</script>
+
+<!--
+<form method="get" action="sql_view">
+    <button>送信</button>
+</form>
+!-->
+
+<!--
+<form name="form1" id="id_form1" action="">
+
+<input type="button" value="Exec" onclick="onButtonClick();" />
+</form>
+!-->
 
 <script>
 
