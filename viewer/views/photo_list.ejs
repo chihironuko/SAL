@@ -3,14 +3,90 @@
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
 	<title>Video List Window</title>
 </head>
+<style>
 
+.luminous::before {
+  z-index: 3;
+}
+
+.luminous {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width:100%;
+  height: 100%;
+}
+
+.luminous img {
+  position: static;
+}
+
+
+.box_rows {
+  display:-webkit-box; /* fallback old Android */
+  display:-ms-flexbox; /* fallback ie10 */
+  display: -webkit-flex; /* fallback old safari */
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.box {
+  margin: 10px 0px 10px 10px;
+  -webkit-box-flex: 1; /* fallback old Android */
+  -ms-flex: 1 1 auto; /* fallback ie10 */
+  flex: 1 1 0;
+  position: relative;
+
+
+}
+
+.gallery > .box:last-child {
+  margin-right: 10px;
+}
+
+.box:before {
+  content: "";
+  display: block;
+  padding-top: 65%; /* 注)画像の縦横比指定 縦幅が横幅の65%という指定。変更可 */
+}
+
+.box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+}
+</style>
 <body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="index.ejs">Management Window</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse justify-content-center" id="navbarText">
+			<ul class="navbar-nav ">
+				<li class="nav-item">
+					<a class="nav-link" href="/">Top<span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="sql_form">センサ情報</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="video_list">ビデオ一覧</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="photo_list">写真一覧</a>
+				</li>
+			</ul>
 
-<div class="row">
-
-</div>
-
-<div class="row">
+		</div>
+	</nav>
+<div class="gallery">
 <script type="text/javascript">
 	/*
 	var test = [<%= title %>];
@@ -45,15 +121,48 @@
 	console.log(result_json);
 	var json_before = result_json.split(',');
 	console.log(json_before);
+	var i_tmp = 0;
+	var br_flg = 0;
+
 	for (i =0, j = json_before.length; i < j; i++){
 		console.log(json_before[i]);
-		document.write("<div class=col><img src=images/" + json_before[i] + " class=img-fluid /></div>");
+		//document.write("<div class=col><img src=images/" + json_before[i] + " class=img-fluid /></div>");
+		console.log(j);
+
+		if(i == i_tmp) {
+			if(i > 3){
+				document.write('</div>')//対応
+			}
+			i_tmp+= 4; //次の改行ポイント
+			document.write('<div class="box_rows">');//改行生成
+			console.log("addDiv");
+		}
+			if(json_before[i] != ".DS_Store") {
+				document.write('<div class="box"><a href="images/' + json_before[i] + '" class="luminous"><img src="images/' + json_before[i] + '" alt="画像"></a></div>');
+			}
+			if(i == j - 1){
+				document.write('</div>')//対応
+			}
+
+		//超重要メモ　：　画像を折り返しで表示する機能はないので、1行に4~5枚表示が目安。それ以上になったら4~5枚ごとにdivで囲いなおしてます。
+	}
+
+</script>
+
+
+<a href="/">back to menu</a><br>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/luminous-lightbox/2.3.2/luminous-basic.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/luminous-lightbox/2.3.2/luminous.min.js"></script>
+
+<script>
+	var luminousTrigger = document.querySelectorAll('.luminous');
+	for (var i = 0; i < luminousTrigger.length; i++) {
+		var luminousElem = luminousTrigger[i];
+		new Luminous(luminousElem);
 	}
 </script>
-</div>
-
-<div class="row">
-	
-</div>
-<a href="/">back to menu</a><br>
 </body>

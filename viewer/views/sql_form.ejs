@@ -26,10 +26,7 @@
 
 <body>
 
-<form action='sql_view'>
-
 <div class="form-group" id="datepicker-inline">
-  <div class="col-sm-9 form-inline">
   	<script>
   		var now = new Date();
 		var year = now.getFullYear();
@@ -37,8 +34,8 @@
 		var day = now.getDate();
     	document.write("<div class=in-line data-date="+year+"年"+month+"月"+day+"日></div>");
 	</script>
+	<br>
     <input type="text" id="my_hidden_input">
-  </div>
 </div>
 <script>
 $(function(){
@@ -54,13 +51,23 @@ $(function(){
     });
 });
 
-document.write('<button type=submit><a href=sql_view id=' +  + '>search</a></button>');
-</script>
-<p>
-<input type="submit" value="送信">
-</p>
+$("save").click(function () {
+	var text = $(this).text();
+});
 
+console.log(text);
+</script>
+
+
+<form action='sql_view'>
+<input type="button" id="save" value=" 保存 " action="sql_view">
 </form>
+
+<script>
+
+</script>
+
+
 
 <p>
 <a href="/" >メニュー画面へ戻る</a><br>

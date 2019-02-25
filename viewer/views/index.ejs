@@ -9,6 +9,10 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <style>
+    .videolink a{
+      text-align: center;
+      font-size: 3.75vw;
+    }
 
     .container {
       text-align: center;
@@ -31,6 +35,7 @@
       width: 33%;
       text-align: center;
       word-break : break-all;
+      overflow: scroll;
     }
 
     .tl_inner {
@@ -44,7 +49,6 @@
       display: flex;
       height: 800px; /*タイムラインの長さに影響 */
       margin: 50px 0px;
-
     }
 
     h2 {
@@ -54,7 +58,7 @@
 
 
 
-    <title><%= title %></title>
+    <title>Management Window</title>
 </head>
 
 <body>
@@ -96,9 +100,103 @@
 
     <div class="container">
     <div id="contents">
-      <div class="timelines"><h2>video</h2><div class="tl_inner">aaaaaaaaaaaaaaaa</div></div>
-      <div class="timelines"><h2>photo</h2><div class="tl_inner">aaaaadwadwadwadwawaaaaaaa</div></div>
-      <div class="timelines"><h2>sql_form</h2><div class="tl_inner">wdawdawdawdaskhgagasfdjgihl;ag</div></div>
+      <div class="timelines"><h2>video</h2>
+        <div class="tl_inner">
+          <script>
+            var videolist = "<%= mov_lis%>";
+            var top='';
+            var result = function(test, dict){
+              var flag = '';
+               var check = ''
+              for(i = 0,j = dict.length; i < j; i ++){
+                flag = dict.splice(0,1).toString();
+                console.log(flag);
+                try{
+                  reg = new RegExp(flag);
+                }catch(SyntaxError){
+                  reg = flag;
+                }
+                console.log(test);
+                while(true){
+                  test = test.replace(reg,'');
+                 if(test == check){
+                   break;
+                }else{
+                  check = test;
+                }
+              }
+            }
+            return test;
+            };
+            var dictionary = [ '&#34','[',']','"',";" ];
+            var result_json = result(videolist,dictionary);
+            console.log(result_json);
+            var json_before = result_json.split(',');
+            for(x=1,y=json_before.length;x<6;x++){
+              if(json_before[y-x] == undefined){
+                break;
+              }
+              document.write('<div class=videolink><a href=video_view?id=' + json_before[y-x] + ' class = videolink>'+ json_before[y-x] + '</a></div><br>');
+            };
+          </script>
+        </div>
+      </div>
+      <div class="timelines"><h2>photo</h2>
+        <div class="tl_inner">
+          
+        </div>
+      </div>
+      <div class="timelines"><h2>sql_data</h2>
+        <div class="tl_inner">
+          <script>
+            var videolist = "<%= sql_res%>";
+            var top='';
+            var result = function(test, dict){
+              var flag = '';
+               var check = ''
+              for(i = 0,j = dict.length; i < j; i ++){
+                flag = dict.splice(0,1).toString();
+                console.log(flag);
+                try{
+                  reg = new RegExp(flag);
+                }catch(SyntaxError){
+                  reg = flag;
+                }
+                console.log(test);
+                while(true){
+                  test = test.replace(reg,'');
+                 if(test == check){
+                   break;
+                }else{
+                  check = test;
+                }
+              }
+            }
+            return test;
+            };
+            var dictionary = [ '&#34','[',']','"',";" ];
+            var result_json = result(videolist,dictionary);
+            console.log(result_json);
+            var json_before = result_json.split(',');
+            document.write('<div class=container>');
+            for(x=15,y=json_before.length - 1;x>0;x--){
+              document.write('<div class=row>')
+              if(json_before[y] == undefined){
+                break;
+              }
+                document.write('<div class=col-xs-2>'+json_before[y]+':</div>');
+                y--;
+                document.write('<div class=col-xs-2>'+json_before[y]+':</div>');
+                y--;
+                document.write('<div class=col-xs-2>'+json_before[y]+'</div>');
+                y--
+              document.write('</div>')
+            };
+            document.write('</div>');
+          </script>
+          
+        </div>
+      </div>
     </div>
 </div>
 
