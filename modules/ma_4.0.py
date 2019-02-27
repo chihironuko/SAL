@@ -115,11 +115,12 @@ class video_man():
                     print("ここで動体検知後の起動ができそう")
                     self.flag = 1
                     d=datetime.datetime.now()
-                    today = str(d.year) + ':' + str(d.month) + ':' + str(d.day) + ':' + str(d.hour) + ':' + str(d.minute) + ':' + str(d.second)
-                    filerename=str(today)+'.mp4'
+                    #today = str(d.year) + ':' + str(d.month) + ':' + str(d.day) + ':' + str(d.hour) + ':' + str(d.minute) + ':' + str(d.second)
+                    #filerename=str(today)+'.mp4'
+                    filerename = d.strftime('%Y:%m:%d:%H:%M:%S') + '.mp4'
                     fps = 10
                     fmt = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
-                    videoWriter = cv2.VideoWriter('output.mp4', fmt, fps, (1440,1080))
+                    videoWriter = cv2.VideoWriter('output.mp4', fmt, fps, (480,360))
                     cv2.imwrite('detected.jpg',frame)
                 x,y,w,h = cv2.boundingRect(target)
                 areaframe = cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),2)
@@ -142,7 +143,7 @@ class video_man():
             if self.flag == 1:
                 print('rec')
                 # 圧縮
-                frame = cv2.resize(frame, (1440, 1080))
+                frame = cv2.resize(frame, (480, 360))
                 # 書き込み
                 videoWriter.write(frame)
 

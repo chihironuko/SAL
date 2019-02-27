@@ -48,5 +48,8 @@ while(True):
             if 0 < len(place) < 21: break
         cur.execute('insert into sensor_config (sensorID,door_name) values (%s,%s)',(str(slicer),str(place)))
         conn.commit()
+        cur.execute('select * from sensor_config')
+        sensor_list = cur.fetchall()
+        sensor_list = [sensor_list[i][0] for i in range(len(sensor_list))]
     ser.close()
     sleep(4)
