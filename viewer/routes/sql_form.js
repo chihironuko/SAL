@@ -12,11 +12,17 @@ router.get('/', function(req, res, next) {
 		password : 'arvensis_11',
 		database : 'boso'
 	});*/
-	var connection = mysql.createConnection({
+	/*var connection = mysql.createConnection({
 		host     : '172.16.162.159',
 		user     : 'other',
 		password : 'jacx0809mmhsmc',
 		database : 'boso'
+	});*/
+	var connection = mysql.createConnection({
+		host	: 'localhost',
+		user	: 'pi',
+		password: 'tomo0406jacx',
+		database: 'boso'
 	});
 	connection.connect(function(err){
 		if(err){

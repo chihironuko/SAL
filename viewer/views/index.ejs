@@ -11,7 +11,7 @@
     <style>
     .videolink a{
       text-align: center;
-      font-size: 3.75vw;
+      font-size: 2.5vw;
     }
 
     .container {
@@ -136,7 +136,8 @@
               if(json_before[y-x] == undefined){
                 break;
               }
-              document.write('<div class=videolink><a href=video_view?id=' + json_before[y-x] + '.mp4 class = videolink>'+ json_before[y-x] + '</a></div><br>');
+	      result = json_before[y-x].split('.')[0];
+              document.write('<div class=videolink><a href=video_view?id=' + result + '.mp4 class = videolink>'+ result + '</a></div><br>');
             };
           </script>
         </div>
@@ -177,7 +178,8 @@
               if(json_before[y-x] == undefined){
                 break;
               }
-              document.write('<div class=videolink><img src=images/' + json_before[y-x] + '.jpg class=img-fluid /></div><br>');
+	      result = json_before[y-x].split('.')[0];
+	      document.write('<div class=videolink><a href=video_view?id='+ result + '.mp4 class=videolink><img src=images/' + result + '.jpg class=img-fluid /></a></div><br>');
             };
           </script>
         </div>

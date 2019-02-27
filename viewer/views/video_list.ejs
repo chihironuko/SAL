@@ -20,6 +20,9 @@
     	max-height: 240px;
 	}
 
+	.img-fluid{
+		margin: 20px;
+	}
 </style>
 
 <body>
@@ -63,10 +66,13 @@
 		document.write('<div class = row>');
 		for(x=0;x<4;x++){
 			if(json_before[flag] != 'undefined'){
+				//document.write('<li>');
 				document.write('<div class=col-xs-1>');
 				var json_file = json_before[flag].split('.')[0]
+			//	document.write('<a href=video_view?id=' + json_before[flag] + '>' + json_before[flag] + '</a>');
 			document.write('<a href=video_view?id=' + json_before[flag] + '><img src=images/' + json_file + '.jpg border=0 class=img-fluid><div>'+ json_before[flag] +'</div></a>');
 				flag++;
+				//document.write('</li>');
 				document.write('</div>');
 			}
 		}

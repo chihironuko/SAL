@@ -2,34 +2,120 @@
 <head>
 	<title>Watch Video Window</title>
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 	<style>
+
+	.container {
+		max-width: 100%;
+		 background: black;
+	}
 		.col-lg-12 div{
-			text-align: center;
-			font-size: 4.375vw;
+			text-align: left;
+			font-size: 24px;
 		}
+
+		video {
+			max-width: 100%;
+		}
+		h2,a {
+			padding-left: 20px;
+		}
+
+		#inner {
+			width: 60%;
+			height: auto;
+		}
+		#nex_bef {
+			width: 33%;
+			height:300px;
+		 margin-left: 5%;
+		}
+
+		.resp {
+			padding-left: 20px;
+			max-width: 100%;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			align-items: stretch;
+		}
+
+		@media screen and (max-width:667px) {
+			#inner {
+				width: 93%;
+				height: auto;
+				margin: 0 0 10px 0;
+
+
+			}
+			#nex_bef {
+				width: 93%;
+				height:300px;
+			 margin-left: 0;
+
+			}
+		}
+
+
 	</style>
 </head>
 
 <body>
 <div class="container">
-	<div class="row">
-		<div class="col-lg-12 bg-primary">
-			<script class="title">
-				var urlParam = location.search.substring(1);
-				var param = urlParam.split('=');
-				document.write("<div class=title>" + param[1] + "</div>");
-			</script>
-		</div>
-	</div>
-
-
 	<div class="embed-responsive embed-responsive-16by9">
 	<script>
 		var urlParam = location.search.substring(1);
-		var param = urlParam.split('=');
-		document.write("<video src= movie/" + param[1] + " class = img-responsive controls allowfullscreen></video>");
+		console.log(urlParam);
+		var param = urlParam.split(/=|,/);
+		console.log(param);
+		var this_video = "";
+		var this_elm = 0;
+		var last_elm = 0;
+		for(var i = 2; i < param.length; i++) {
+			if( param[1] == param[i]) {
+				this_video = param[i];
+				this_elm = i - 2;
+				console.log(this_elm);
+
+			}
+			last_elm++;
+			console.log(last_elm);
+		}
+		last_elm--;
+		document.write("<video src= movie/" + this_video + " class = img-responsive controls allowfullscreen></video>");
 	</script>
 	</div>
+</div>
+
+		<script>
+
+			document.write("<h2 class='title'>" +  this_video + "</h2>");
+			document.write('<div class="resp">');
+			document.write('<div id="inner">説明：'+  this_video +'</div>');
+			document.write('<div id="nex_bef">');
+
+			console.log(urlParam.split("id="+param[1]+","));
+			var per_str = urlParam.split("id="+param[1]+",");
+			var array_str = per_str[1].split(",");
+			var nex_bef_array = [0,0];
+			console.log(array_str);
+			if(this_elm != 0) {
+				document.write('<h3>前の動画</h3>');
+				nex_bef_array[0] = this_elm - 1;
+				document.write('<a href=video_view?id=' + array_str[nex_bef_array[0]] +","+per_str[1]+'><img src="http://www.mmdn-net.com/~harikyu/bana/shinkyuin_1.gif" border="0"><br><div>'+ array_str[nex_bef_array[0]] +'</div></a>');
+			}
+			if(this_elm != last_elm) {
+				nex_bef_array[1] = this_elm + 1;
+				if(array_str[nex_bef_array[1]] != 'undefined') {
+					document.write('<h3>次の動画</h3>');
+					document.write('<a href=video_view?id=' + array_str[nex_bef_array[1]] +","+per_str[1]+'><img src="http://www.mmdn-net.com/~harikyu/bana/shinkyuin_1.gif" border="0"><br><div>'+ array_str[nex_bef_array[1]] +'</div></a>');
+					console.log(array_str[nex_bef_array[1]] +","+per_str[1]);
+				}
+			}
+
+			document.write('</div>');
+		</script>
+
 </div>
 
 <a href="/video_list">ビデオ一覧へ戻る</a><br>

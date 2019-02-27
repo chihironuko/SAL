@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
 		database : 'boso'
 	});*/
 	var connection = mysql.createConnection({
-		host     : '172.16.162.159',
+		host     : '172.16.162.156',
 		user     : 'other',
 		password : 'jacx0809mmhsmc',
 		database : 'boso'
@@ -32,19 +32,13 @@ router.get('/', function(req, res, next) {
     		var fileList = files.filter(function(file){
     			try{
         			return fs.statSync("./public/movie/"+file).isFile(); //絞り込み
-        		}catch(e){
+        		}catch{
         			return false;
         		}
     		});
-    		var file_json_res = [];
-    		var tmp = '';
-    		for(i=0,j=fileList.length;i<j;i++){
-    			tmp = fileList[i].split('.');
-    			file_json_res.push(tmp[0]);
-    		};
-    		console.log(file_json_res);
+    		console.log(fileList);
 			var json_text = JSON.stringify(fileList);
-			res.render('index',{mov_lis : file_json_res,sql_res : sql_result});
+			res.render('index',{mov_lis : json_text,sql_res : sql_result});
 		});
 	};
 
