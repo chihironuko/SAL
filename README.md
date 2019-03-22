@@ -1,7 +1,7 @@
 # 大学プロジェクト用
 ***
 modules = module program  
-web_pages =ビューア  
+web_pages=ビューア  
 参考文献  
 •カメラ  
 python+opencvとwebカメラを使って動体検知する話
