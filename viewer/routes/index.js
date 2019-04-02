@@ -7,17 +7,11 @@ router.get('/', function(req, res, next) {
 	var mysql  = require('mysql');
 	var result = [];
 	global.result = [];
-	/*var connection = mysql.createConnection({
-		host     : '192.168.100.7',
-		user     : 'home',
-		password : 'arvensis_11',
-		database : 'boso'
-	});*/
 	var connection = mysql.createConnection({
-		host     : '172.16.162.156',
-		user     : 'other',
-		password : 'jacx0809mmhsmc',
-		database : 'boso'
+		host     : 'IP Address',
+		user     : 'username',
+		password : 'password',
+		database : 'database'
 	});
 	connection.connect(function(err){
 		if(err){
