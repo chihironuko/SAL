@@ -1,8 +1,8 @@
-modules = module program  
-web_pages = viewer  
+modules = カメラユニット、センサユニットのプログラム  
+web_pages = viewer内のプログラム。nodejs+expressです。  
   
   
-正直ラズパイの中身が一番新しいなんてこともザラなので、あまり当てにはしないでください。  
+正直ラズパイの中身が一番新しいなんてこともあるので、あまり当てにはしないでください。  
 参考文献と使用したコード  
 Sql_formのカレンダー部分:bootstrap-datepicker  
 https://github.com/uxsolutions/bootstrap-datepicker
@@ -23,4 +23,5 @@ https://github.com/uxsolutions/bootstrap-datepicker
 ipアドレスの静的な設定の仕方を忘れた？そんなあなたにはドングルです。hostapdの例のやつです。マニュアルを見てください。  
 また、ドングルは簡単に色々設定してくれますが熱を持ってすぐに死ぬという特徴を持っています。頑張りましょう(?)。  
 もしドングルが無理であれば、静的ipです。etc/hosts/interfacesを覗いてあげてください。wlan 0の部分をstaticにしてip addressとmaskを設定しましょう。  
+(3月追記)できればドングルは使わないほうがいいです。熱で壊れます。  
 マニュアルですが、一応私のブログに載せようかと思っています。載せたらリンクを貼ります。ご期待ください。  
