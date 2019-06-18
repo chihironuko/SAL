@@ -28,3 +28,6 @@ ipアドレスの静的な設定の仕方を忘れた？そんなあなたには
 また、ドングルは簡単に色々設定してくれますが熱を持ってすぐに死ぬという特徴を持っています。頑張りましょう(?)。  
 もしドングルが無理であれば、静的ipです。etc/hosts/interfacesを覗いてあげてください。wlan 0の部分をstaticにしてip addressとmaskを設定しましょう。  
 (3月追記)できればドングルは使わないほうがいいです。熱で壊れます。  
+
+マニュアル原本へのリンク
+https://drive.google.com/open?id=1q03TFeA1tk8HdIHBVjSVxvsRePY7AIwj
