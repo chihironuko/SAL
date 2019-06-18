@@ -36,10 +36,12 @@ class video_man():
                 self.video_flag = 1
 
     def face_check(self):
+        #顔認証をカスケード分類機で行う
         cascade_path = "haarcascade_frontalface_alt.xml"
         #cascade_path = "/usr/local/opt/opencv/share/OpenCV/haarcascades/haarcascade_eye.xml"
+        #ここで保存した写真を分類機にかけるという愚行を犯しているのでここは要変更
         image_path = "face_pic.jpg"
-        color = (255, 255, 255) #白
+        color = (255, 255, 255)
         #ファイル読み込み
         image = cv2.imread(image_path)
         #グレースケール変換
@@ -53,11 +55,10 @@ class video_man():
         #minNeighbors – rectangle
         #flags – ???
         #minSize – too
-
-        #facerect = cascade.detectMultiScale(image_gray, scaleFactor=1.1, minNeighbors=1, minSize=(1,1))
         facerect = cascade.detectMultiScale(image_gray, scaleFactor=1.1, minNeighbors=1, minSize=(1, 1))
         print("face rectangle")
         print(facerect)
+        #大きいものを選択
         if len(facerect) > self.face_re:
             #create rectangle
             self.face_re = len(facerect)
@@ -68,28 +69,24 @@ class video_man():
         os.remove("face_pic.jpg")
 
     def main(self):
+        #カメラ映像を取得するcapを生成
         cap = cv2.VideoCapture(0)
         while True:
-            #read camera
+            #capから映像を取得
             ret, frame = cap.read()
-
-            # size change
+            #サイズを小さくする
             frame = cv2.resize(frame, (int(frame.shape[1]/4), int(frame.shape[0]/4)))
-            # default frame
-            #show! show! show!
             cv2.imshow('Raw Frame', frame)
 
-            # difference
+            #前フレームとの違いを見る(動体検知)
+            #グレースケールに変換
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             if self.before is None:
                 self.before = gray.copy().astype('float')
                 continue
-
             cv2.accumulateWeighted(gray, self.before, 0.5)
             mdframe = cv2.absdiff(gray, cv2.convertScaleAbs(self.before))
-
-            # 動いているところが明るい画像を表示する
-            #cv2.imshow('MotionDetected Frame', mdframe)
+            #白黒変換。真っ白と真っ黒の画像にして真っ白があったらそれは動いているものとする
             thresh = cv2.threshold(mdframe, 3, 255, cv2.THRESH_BINARY)[1]
 
             image, contours, hierarchy = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -98,25 +95,23 @@ class video_man():
                 target = contours[0]
             except IndexError:
                 pass
-                #print('Nothing')
             for cnt in contours:
-
                 area = cv2.contourArea(cnt)
                 if max_area < area and area < 10000 and area > 1000:
-                    max_area = area;
+                    max_area = area
                     target = cnt
 
             if max_area <= 1000:
             	areaframe = frame
 
             else:
+                #動体検知された時の処理
                 self.start = time()
+                #最初の動体検知.映像の録画を始めるところ
                 if self.flag == 0:
-                    print("ここで動体検知後の起動ができそう")
+                    print("動体検知後の起動")
                     self.flag = 1
                     d=datetime.datetime.now()
-                    #today = str(d.year) + ':' + str(d.month) + ':' + str(d.day) + ':' + str(d.hour) + ':' + str(d.minute) + ':' + str(d.second)
-                    #filerename=str(today)+'.mp4'
                     filerename = d.strftime('%Y:%m:%d:%H:%M:%S') + '.mp4'
                     fps = 10
                     fmt = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
@@ -126,35 +121,32 @@ class video_man():
                 areaframe = cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),2)
                 cv2.imwrite('face_pic.jpg',frame)
                 if self.process_flag == 0:
-                    #self.p.starmap(self.face_check) 
                     p = Process(target=self.face_check)
                     self.jobs.append(p)
                     p.start()
-                    '''
-                    #self.p.join()
-                    '''
                     self.process_flag = 1
                 if self.jobs[-1].exitcode == 0:
                     self.process_flag = 0
                     self.jobs[-1].terminate()
 
-            cv2.imshow('MotionDetected Area Frame', areaframe)
-            #print(self.process_flag)
+            #cv2.imshow('MotionDetected Area Frame', areaframe)
             if self.flag == 1:
                 print('rec')
-                # 圧縮
                 frame = cv2.resize(frame, (480, 360))
                 # 書き込み
                 videoWriter.write(frame)
 
                 end=time()
+                #動体検知後10秒間動くものが存在しなかった場合録画を終了
                 if end-self.start >= 10:
                     self.flag = 2
+            #録画したものの書き出し,親機への動画,画像の転送
             if self.flag == 2:
                 os.rename('output.mp4','%s'%(filerename))
                 videoWriter.release()
                 filerename2 = str(today)+'.jpg'
                 os.rename('detected.jpg','%s'%(filerename2))
+                #sshを用いて親機へファイルを転送
                 with paramiko.SSHClient() as ssh:
                     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
                     ssh.connect(hostname='parent IP',port=22,username='pi',password='pi password')
@@ -166,12 +158,14 @@ class video_man():
                 self.flag = 0
             k = cv2.waitKey(1)
             if k == 27:
-                tm.sleep(1)
+                tm.sleep(3)
                 break
 
 
         cap.release()
         cv2.destroyAllWindows()
 
-test = video_man()
-test.main()
+
+if __name__ == '__main__':
+    test = video_man()
+    test.main()
