@@ -31,3 +31,5 @@ ipアドレスの静的な設定の仕方を忘れた？そんなあなたには
 
 マニュアル原本へのリンク
 https://drive.google.com/open?id=1q03TFeA1tk8HdIHBVjSVxvsRePY7AIwj
+
+(6月追記)本人も使い方を忘れました。nodejsやめといた方が良いかと。
