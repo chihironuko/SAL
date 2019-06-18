@@ -15,6 +15,7 @@ import scp as scp
 
 class video_man():
     def __init__(self):
+        #初期設定
         self.flag = 0
         self.video_flag = 0
         self.check_flag = 0
@@ -36,7 +37,7 @@ class video_man():
                 self.video_flag = 1
 
     def face_check(self):
-        #顔認証をカスケード分類機で行う
+        #顔認証をカスケード分類機で行う.cascade_pathはかける特徴データを決める.この場合は正面から見た顔
         cascade_path = "haarcascade_frontalface_alt.xml"
         #cascade_path = "/usr/local/opt/opencv/share/OpenCV/haarcascades/haarcascade_eye.xml"
         #ここで保存した写真を分類機にかけるという愚行を犯しているのでここは要変更
@@ -46,7 +47,7 @@ class video_man():
         image = cv2.imread(image_path)
         #グレースケール変換
         image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        #カスケード分類器の特徴量を取得する
+        #カスケード分類器で特徴量を取得する
         cascade = cv2.CascadeClassifier(cascade_path)
         #物体認識（顔認識）の実行
         #image – matrix
