@@ -10,7 +10,7 @@ import datetime
 import time
 import serial
 
-url = urlparse('mysql://'username':'password'@'hostname':'port number'dbname')
+url = urlparse('mysql://username:password@localhost:3306/dbname')
 conn = mysql.connector.connect(
         host = url.hostname,
         port = url.port,
@@ -35,13 +35,16 @@ while(True):
     print(checkflag)
 
     try:
+        #ここでセンサのデータを記録
         print(str(checkflag[0]) + 'is find!')
         date = datetime.datetime.today()
         today = date.strftime('%Y-%m-%d')
         now = date.strftime('%H:%M:%S')
+        #クエリ実行
         cur.execute('insert into sensor (date,time,place) values (%s,%s,%s)',(str(today),str(now),str(slicer)))
         conn.commit()
     except IndexError:
+        #存在しない新しいセンサが動いていたら,名前をつける
         while True:
             print('This is new sensor. please give a name to this sensor.')
             place = input('>>>')
