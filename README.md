@@ -34,5 +34,5 @@ https://drive.google.com/open?id=1q03TFeA1tk8HdIHBVjSVxvsRePY7AIwj
 
 (6月追記):  
 本人も使い方を忘れました。nodejsはやめといた方が良いかと。  
-おそらくですが、sql立てたり何なりしないとnodejsはうまく動かないため、もし一度動かしてみたかったりした場合はraspberrypiで実行するのが一番簡単そうです。  
+おそらくですが、sql立てたり何なりしないとviewerはうまく動かないため、もし一度動かしてみたい場合はraspberrypiで実行するのが一番簡単そうです。  
 カメラやセンサは転送はしないものの、実行はできます。
