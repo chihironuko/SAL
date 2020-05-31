@@ -1,15 +1,20 @@
 # 大学プロジェクト用
 ***
+* コードに関して  
 modules = カメラユニット、センサユニットのプログラム  
 web_pages = viewer内のプログラム。nodejs+expressです。  
+
 参考文献  
-•カメラ  
+•
+* カメラ  
 python+opencvとwebカメラを使って動体検知する話
 https://ensekitt.hatenablog.com/entry/2018/06/11/200000  
 この他にも様々なサイトにお世話になりました。
   
-  
-正直ラズパイの中身が一番新しいなんてこともあるので、あまり当てにはしないでください。  
+## システム概要図  
+![sal_system_overview](https://user-images.githubusercontent.com/35915885/83359919-66123280-a3b8-11ea-81f5-98a858e20511.png)  
+Nodejsを動かしているのはraspberrypiです。  
+今後の予定として直近のデータはRaspberryPiへ、過去のデータはAWSへ保存する予定が立てられましたが、後輩に託してあります。  
 
 同班班員向けの使用方法(※あらかじめnodejsやらpythonやら必要なものは入れておいてください。)  
 1,このリポジトリをcloneします。  
